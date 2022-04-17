@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/reusable_widgets.dart';
+import 'package:tic_tac_toe/screens/offline_two_player_screen.dart';
 import 'package:tic_tac_toe/screens/single_player_mode_screen.dart';
 import 'package:tic_tac_toe/screens/two_player_online_mode_screen.dart';
 import 'package:tic_tac_toe/style.dart';
@@ -58,7 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const SinglePlayerModeScreen()),
+                        settings: const RouteSettings(name: '/OfflineTwoPlayerScreen'),
+                          builder: (context) => const OfflineTwoPlayerScreen()),
                     );
                   });
                 }),

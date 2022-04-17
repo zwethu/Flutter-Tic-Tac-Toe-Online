@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/reusable_widgets.dart';
+import 'package:tic_tac_toe/screens/offline_two_player_screen.dart';
 import 'package:tic_tac_toe/style.dart';
 
 class SinglePlayerModeScreen extends StatefulWidget {
@@ -37,7 +38,11 @@ class _SinglePlayerModeScreenState extends State<SinglePlayerModeScreen> {
                     TouchedIndex = 0;
                     resetTouchAnimation();
                   });
-                  // Navigator.of(context).pop(const SinglePlayerModeScreen());
+                   Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const OfflineTwoPlayerScreen()),
+                    );
                 }),
             const SizedBox(height: 30),
             //normal easy ai bot
