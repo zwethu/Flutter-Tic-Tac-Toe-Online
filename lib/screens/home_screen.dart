@@ -43,7 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const SinglePlayerModeScreen()),
+                        builder: (context) => const SinglePlayerModeScreen(),
+                      ),
                     );
                   });
                 }),
@@ -59,7 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        settings: const RouteSettings(name: '/OfflineTwoPlayerScreen'),
+                          settings: const RouteSettings(
+                              name: '/OfflineTwoPlayerScreen'),
                           builder: (context) => const OfflineTwoPlayerScreen()),
                     );
                   });
@@ -78,7 +80,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const TwoPlayerOnlineModeScreen()),
+                          builder: (context) =>
+                              const TwoPlayerOnlineModeScreen()),
                     );
                   });
                 }),

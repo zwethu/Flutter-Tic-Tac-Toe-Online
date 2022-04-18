@@ -1,17 +1,20 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/screens/home_screen.dart';
 import 'package:tic_tac_toe/style.dart';
 
 enum playerType { player1, player2, none }
 
-class OfflineTwoPlayerScreen extends StatefulWidget {
-  const OfflineTwoPlayerScreen({Key? key}) : super(key: key);
+class SinglePlayerEasyScreen extends StatefulWidget {
+  const SinglePlayerEasyScreen({Key? key}) : super(key: key);
 
   @override
-  State<OfflineTwoPlayerScreen> createState() => _OfflineTwoPlayerScreenState();
+  State<SinglePlayerEasyScreen> createState() => _SinglePlayerEasyScreenState();
 }
 
-class _OfflineTwoPlayerScreenState extends State<OfflineTwoPlayerScreen> {
+class _SinglePlayerEasyScreenState extends State<SinglePlayerEasyScreen> {
   List<playerType> gameData = [
     playerType.none,
     playerType.none,
@@ -25,8 +28,12 @@ class _OfflineTwoPlayerScreenState extends State<OfflineTwoPlayerScreen> {
   ];
   int currentIndex = -1;
   int timeCount = 1;
+  int randomNumber = -1;
   bool isPlayer1 = false;
   bool isPlayer2 = false;
+  bool gotUniqueId = false;
+  bool isPlayer1Winner = false;
+  bool isPlayer2Winner = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +43,12 @@ class _OfflineTwoPlayerScreenState extends State<OfflineTwoPlayerScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            playerScreen(),
+            const Text("Your turn", style: bigFont),
             const SizedBox(height: 50),
             touchscreenGridView(),
           ],
         ),
       ),
-    );
-  }
-
-  Container playerScreen() {
-    return Container(
-      child: timeCount % 2 == 0
-          ? const Text("Player2's turn", style: bigFont)
-          : const Text("Player1's turn", style: bigFont),
     );
   }
 
@@ -141,6 +140,7 @@ class _OfflineTwoPlayerScreenState extends State<OfflineTwoPlayerScreen> {
             gameData[4] == playerType.player1 &&
             gameData[6] == playerType.player1)) {
       showWinner(context, playerType.player1);
+      isPlayer1Winner = true;
     }
   }
 
@@ -170,19 +170,29 @@ class _OfflineTwoPlayerScreenState extends State<OfflineTwoPlayerScreen> {
             gameData[4] == playerType.player2 &&
             gameData[6] == playerType.player2)) {
       showWinner(context, playerType.player2);
+      isPlayer2Winner = true;
     }
   }
 
   void showXorOAccordingToPlayer() {
-    if (timeCount % 2 == 1) {
+    if (timeCount % 2 == 1 && !isPlayer2Winner) {
       if (gameData[currentIndex] == playerType.none) {
         gameData[currentIndex] = playerType.player1;
-        timeCount++;
+        timeCount = timeCount + 1;
       }
-    } else if (timeCount % 2 == 0) {
-      if (gameData[currentIndex] == playerType.none) {
-        gameData[currentIndex] = playerType.player2;
-        timeCount++;
+    }
+    if (timeCount % 2 == 0 && !isPlayer1Winner) {
+      gotUniqueId = false;
+      do {
+        randomNumber = Random().nextInt(8);
+        if (gameData[randomNumber] == playerType.none &&
+            gameData[randomNumber] != playerType.player1) {
+          gotUniqueId = true;
+          timeCount = timeCount + 1;
+        }
+      } while (!gotUniqueId);
+      if (gotUniqueId) {
+        gameData[randomNumber] = playerType.player2;
       }
     }
   }
