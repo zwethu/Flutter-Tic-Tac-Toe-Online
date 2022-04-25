@@ -33,7 +33,9 @@ class _GameModeState extends State<GameMode> {
             onPressed: () => widget.onTap(),
             child: Text(
               widget.modeText,
-              style: normalFont.copyWith(color: widget.color),
+              style: normalFont.copyWith(
+                color: widget.color,
+              ),
             ),
           ),
         ),
@@ -43,14 +45,9 @@ class _GameModeState extends State<GameMode> {
 }
 
 class ButtonBack extends StatelessWidget {
-  final Icon iconName;
   final Function onTap;
   final Color color;
-  const ButtonBack(
-      {Key? key,
-      required this.iconName,
-      required this.onTap,
-      required this.color})
+  const ButtonBack({Key? key, required this.onTap, required this.color})
       : super(key: key);
 
   @override
@@ -69,6 +66,37 @@ class ButtonBack extends StatelessWidget {
             onPressed: () => onTap(),
             child: Icon(
               Icons.arrow_back_outlined,
+              color: color,
+              size: 30,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ForwardButton extends StatelessWidget {
+  final Function onTap;
+  final Color color;
+  const ForwardButton({Key? key, required this.onTap, required this.color})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: DottedBorder(
+        borderType: BorderType.RRect,
+        radius: const Radius.circular(12),
+        dashPattern: const [15, 10],
+        color: color,
+        strokeWidth: 2,
+        child: SizedBox(
+          width: 60,
+          height: 60,
+          child: TextButton(
+            onPressed: () => onTap(),
+            child: Icon(
+              Icons.arrow_forward_outlined,
               color: color,
               size: 30,
             ),

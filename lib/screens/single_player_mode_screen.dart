@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/reusable_widgets.dart';
 import 'package:tic_tac_toe/screens/single_player_easy_screen.dart';
+import 'package:tic_tac_toe/screens/single_player_normal_screen.dart';
 import 'package:tic_tac_toe/style.dart';
 
 class SinglePlayerModeScreen extends StatefulWidget {
@@ -48,30 +49,23 @@ class _SinglePlayerModeScreenState extends State<SinglePlayerModeScreen> {
             const SizedBox(height: 30),
             //normal easy ai bot
             GameMode(
-                modeText: 'Normal',
+                modeText: 'Hard',
                 color: TouchedIndex == 1 ? onTapColor : Colors.white,
                 onTap: () {
                   setState(() {
                     TouchedIndex = 1;
                     resetTouchAnimation();
                   });
-                  // Navigator.of(context).pop(const SinglePlayerModeScreen());
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SinglePlayerNormalScreen(),
+                    ),
+                  );
                 }),
-            const SizedBox(height: 30),
-            //hard ai god mode
-            GameMode(
-                modeText: 'Hard',
-                color: TouchedIndex == 2 ? onTapColor : Colors.white,
-                onTap: () {
-                  setState(() {
-                    TouchedIndex = 2;
-                    resetTouchAnimation();
-                  });
-                  // Navigator.of(context).pop(const SinglePlayerModeScreen());
-                }),
+
             const SizedBox(height: 30),
             ButtonBack(
-              iconName: const Icon(Icons.arrow_back_outlined),
               onTap: () {
                 setState(() {
                   TouchedIndex = 3;

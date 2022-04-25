@@ -11,3 +11,9 @@ const TextStyle normalFont = TextStyle(
   color: Colors.white,
   fontWeight: FontWeight.bold,
 );
+
+const TextStyle smallFont = TextStyle(
+  fontSize: 18,
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
+);
