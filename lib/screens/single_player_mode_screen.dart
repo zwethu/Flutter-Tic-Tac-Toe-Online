@@ -32,46 +32,50 @@ class _SinglePlayerModeScreenState extends State<SinglePlayerModeScreen> {
             const SizedBox(height: 50),
             //stupid ai bot
             GameMode(
-                modeText: 'Easy',
-                color: TouchedIndex == 0 ? onTapColor : Colors.white,
-                onTap: () {
-                  setState(() {
-                    TouchedIndex = 0;
-                    resetTouchAnimation();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SinglePlayerEasyScreen(),
-                      ),
-                    );
-                  });
-                }),
-            const SizedBox(height: 30),
-            //normal easy ai bot
-            GameMode(
-                modeText: 'Hard',
-                color: TouchedIndex == 1 ? onTapColor : Colors.white,
-                onTap: () {
-                  setState(() {
-                    TouchedIndex = 1;
-                    resetTouchAnimation();
-                  });
+              modeText: 'Easy',
+              color: TouchedIndex == 0 ? onTapColor : Colors.white,
+              onTap: () {
+                setState(() {
+                  TouchedIndex = 0;
+                  resetTouchAnimation();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SinglePlayerNormalScreen(),
+                      builder: (context) => const SinglePlayerEasyScreen(),
                     ),
                   );
-                }),
+                });
+              },
+            ),
+            const SizedBox(height: 30),
+            //normal easy ai bot
+            GameMode(
+              modeText: 'Hard',
+              color: TouchedIndex == 1 ? onTapColor : Colors.white,
+              onTap: () {
+                setState(() {
+                  TouchedIndex = 1;
+                  resetTouchAnimation();
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SinglePlayerNormalScreen(),
+                  ),
+                );
+              },
+            ),
 
             const SizedBox(height: 30),
             ButtonBack(
               onTap: () {
-                setState(() {
-                  TouchedIndex = 3;
-                  resetTouchAnimation();
-                  Navigator.pop(context);
-                });
+                setState(
+                  () {
+                    TouchedIndex = 3;
+                    resetTouchAnimation();
+                    Navigator.pop(context);
+                  },
+                );
               },
               color: TouchedIndex == 3 ? onTapColor : Colors.white,
             ),

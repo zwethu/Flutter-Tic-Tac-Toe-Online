@@ -33,49 +33,49 @@ class _RoomCreateScreenState extends State<RoomCreateScreen> {
               style: bigFont,
             ),
             const SizedBox(height: 50),
-
-            //online mode using internet connection
             GameMode(
-                modeText: 'Create Room',
-                color: TouchedIndex == 0 ? onTapColor : Colors.white,
-                onTap: () async {
-                  setState(() {
-                    TouchedIndex = 0;
-                    resetTouchAnimation();
-                    roomId = _firestore.collection('GameData').doc().id;
-                  });
-                  await _firestore
-                      .collection('GameData')
-                      .doc(roomId)
-                      .set({'gameData': gameData,'timeCount': 1});
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OnlinePlayer1PrepareScreen(
-                        roomID: roomId.toString(),
-                        isRoomOwner: true,
-                      ),
+              modeText: 'Create Room',
+              color: TouchedIndex == 0 ? onTapColor : Colors.white,
+              onTap: () async {
+                setState(() {
+                  TouchedIndex = 0;
+                  resetTouchAnimation();
+                  roomId = _firestore.collection('GameData').doc().id;
+                });
+                await _firestore
+                    .collection('GameData')
+                    .doc(roomId)
+                    .set({'gameData': gameData, 'timeCount': 1});
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OnlinePlayer1PrepareScreen(
+                      roomID: roomId.toString(),
+                      isRoomOwner: true,
                     ),
-                  );
-                }),
+                  ),
+                );
+              },
+            ),
             const SizedBox(height: 30),
             //use hotspot connnection to play together
             GameMode(
-                modeText: 'Join Room',
-                color: TouchedIndex == 1 ? onTapColor : Colors.white,
-                onTap: () {
-                  setState(() {
-                    TouchedIndex = 1;
-                    resetTouchAnimation();
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          const OnlinePlayer2PrepareScreen(isRoomOwner: false),
-                    ),
-                  );
-                }),
+              modeText: 'Join Room',
+              color: TouchedIndex == 1 ? onTapColor : Colors.white,
+              onTap: () {
+                setState(() {
+                  TouchedIndex = 1;
+                  resetTouchAnimation();
+                });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        const OnlinePlayer2PrepareScreen(isRoomOwner: false),
+                  ),
+                );
+              },
+            ),
             const SizedBox(height: 30),
             ButtonBack(
               onTap: () {

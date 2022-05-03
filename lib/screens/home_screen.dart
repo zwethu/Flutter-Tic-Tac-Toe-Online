@@ -1,4 +1,3 @@
-///this screen is home screen. User need to select one of modes(single, multiplayer offline, multiplayer online)
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/reusable_widgets.dart';
@@ -103,8 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<dynamic> navigateToOfflineTwoPlayerScreen(BuildContext context) {
-    return Navigator.push(
+  void navigateToOfflineTwoPlayerScreen(BuildContext context) {
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => const OfflineTwoPlayerScreen(),

@@ -78,7 +78,7 @@ class _OnlineMultiplayerScreenState extends State<OnlineMultiplayerScreen> {
                           showTieMessage(context);
                         }
                       });
-                      print(timeCount);
+
                       return touchscreenGridView();
                     } else if (snapshot.connectionState ==
                         ConnectionState.waiting) {
@@ -117,7 +117,7 @@ class _OnlineMultiplayerScreenState extends State<OnlineMultiplayerScreen> {
       itemBuilder: (BuildContext context, int index) {
         return TouchScreen(
           onTap: () {
-            print(gameData);
+
             setState(() {
               currentIndex = index;
               showXorOAccordingToPlayer();

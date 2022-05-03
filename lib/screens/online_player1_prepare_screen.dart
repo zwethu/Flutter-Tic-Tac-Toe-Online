@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -54,22 +53,12 @@ class _OnlinePlayer1PrepareScreenState
                 style: normalFont,
               ),
             ),
-            // IDCopyboard(
-            //     modeText: id,
-            //     color: TouchedIndex == 0 ? onTapColor : Colors.white,
-            //     onTap: () {
-            //       setState(() {
-            //         TouchedIndex = 0;
-            //         resetTouchAnimation();
-            //       });
-            //       // Navigator.of(context).pop(const SinglePlayerModeScreen());
-            //     }),
             IDCopyboard(
               id: id,
               onTap: () {
-               setState(() {
+                setState(() {
                   Clipboard.setData(ClipboardData(text: id));
-               });
+                });
               },
               color: TouchedIndex == 0 ? onTapColor : Colors.white,
               icon: Icons.file_copy_outlined,
@@ -153,13 +142,6 @@ class _IDCopyboardState extends State<IDCopyboard> {
         strokeWidth: 2,
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.8,
-          // child: TextButton(
-          //   onPressed: () => widget.onTap(),
-          //   child: Text(
-          //     widget.modeText,
-          //     style: normalFont.copyWith(color: widget.color),
-          //   ),
-          // ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -168,9 +150,12 @@ class _IDCopyboardState extends State<IDCopyboard> {
                 widget.id,
                 style: smallFont,
               ),
-              IconButton(onPressed: (){
-                widget.onTap();
-              }, icon: Icon(widget.icon)),
+              IconButton(
+                onPressed: () {
+                  widget.onTap();
+                },
+                icon: Icon(widget.icon),
+              ),
             ],
           ),
         ),

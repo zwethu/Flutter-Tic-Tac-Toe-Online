@@ -139,13 +139,6 @@ class _IDCopyboardState extends State<IDCopyboard> {
         strokeWidth: 2,
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.8,
-          // child: TextButton(
-          //   onPressed: () => widget.onTap(),
-          //   child: Text(
-          //     widget.modeText,
-          //     style: normalFont.copyWith(color: widget.color),
-          //   ),
-          // ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -154,7 +147,10 @@ class _IDCopyboardState extends State<IDCopyboard> {
                 widget.id,
                 style: smallFont,
               ),
-              IconButton(onPressed: () {}, icon: Icon(widget.icon)),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(widget.icon),
+              ),
             ],
           ),
         ),
