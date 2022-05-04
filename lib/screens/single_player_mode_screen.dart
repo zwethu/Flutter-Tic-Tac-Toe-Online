@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/reusable_widgets.dart';
 import 'package:tic_tac_toe/screens/single_player_easy_screen.dart';
-import 'package:tic_tac_toe/screens/single_player_normal_screen.dart';
+import 'package:tic_tac_toe/screens/single_player_hard_screen.dart';
 import 'package:tic_tac_toe/style.dart';
+
+enum mode{none,easy,hard,back}
 
 class SinglePlayerModeScreen extends StatefulWidget {
   const SinglePlayerModeScreen({Key? key}) : super(key: key);
@@ -17,6 +19,7 @@ class _SinglePlayerModeScreenState extends State<SinglePlayerModeScreen> {
   final Color onTapColor = const Color(0xff035956);
   // ignore: non_constant_identifier_names
   int TouchedIndex = -1;
+  mode selectedMode = mode.none;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,10 +36,10 @@ class _SinglePlayerModeScreenState extends State<SinglePlayerModeScreen> {
             //stupid ai bot
             GameMode(
               modeText: 'Easy',
-              color: TouchedIndex == 0 ? onTapColor : Colors.white,
+              color: selectedMode == mode.easy ? onTapColor : Colors.white,
               onTap: () {
                 setState(() {
-                  TouchedIndex = 0;
+                  selectedMode = mode.easy;
                   resetTouchAnimation();
                   Navigator.push(
                     context,
@@ -51,16 +54,16 @@ class _SinglePlayerModeScreenState extends State<SinglePlayerModeScreen> {
             //normal easy ai bot
             GameMode(
               modeText: 'Hard',
-              color: TouchedIndex == 1 ? onTapColor : Colors.white,
+              color: selectedMode == mode.hard ? onTapColor : Colors.white,
               onTap: () {
                 setState(() {
-                  TouchedIndex = 1;
+                  selectedMode = mode.hard;
                   resetTouchAnimation();
                 });
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const SinglePlayerNormalScreen(),
+                    builder: (context) => const SinglePlayerHardScreen(),
                   ),
                 );
               },
@@ -71,13 +74,13 @@ class _SinglePlayerModeScreenState extends State<SinglePlayerModeScreen> {
               onTap: () {
                 setState(
                   () {
-                    TouchedIndex = 3;
+                    selectedMode = mode.back;
                     resetTouchAnimation();
                     Navigator.pop(context);
                   },
                 );
               },
-              color: TouchedIndex == 3 ? onTapColor : Colors.white,
+              color: selectedMode == mode.back ? onTapColor : Colors.white,
             ),
           ],
         ),
@@ -86,10 +89,10 @@ class _SinglePlayerModeScreenState extends State<SinglePlayerModeScreen> {
   }
 
   Timer resetTouchAnimation() {
-    return Timer(const Duration(milliseconds: 300), () {
-      setState(() {
-        TouchedIndex = -1;
-      });
+    return Timer(const Duration(milliseconds: 600), () {
+    
+        selectedMode = mode.none;
+     
     });
   }
 }

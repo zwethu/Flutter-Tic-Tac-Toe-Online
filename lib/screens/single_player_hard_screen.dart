@@ -6,15 +6,15 @@ import 'package:tic_tac_toe/style.dart';
 
 enum playerType { player1, player2, none }
 
-class SinglePlayerNormalScreen extends StatefulWidget {
-  const SinglePlayerNormalScreen({Key? key}) : super(key: key);
+class SinglePlayerHardScreen extends StatefulWidget {
+  const SinglePlayerHardScreen({Key? key}) : super(key: key);
 
   @override
-  State<SinglePlayerNormalScreen> createState() =>
-      _SinglePlayerNormalScreenState();
+  State<SinglePlayerHardScreen> createState() =>
+      _SinglePlayerHardScreenState();
 }
 
-class _SinglePlayerNormalScreenState extends State<SinglePlayerNormalScreen> {
+class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
   List<playerType> gameData = [
     playerType.none,
     playerType.none,
@@ -34,6 +34,7 @@ class _SinglePlayerNormalScreenState extends State<SinglePlayerNormalScreen> {
   bool gotUniqueId = false;
   bool isPlayer1Winner = false;
   bool isPlayer2Winner = false;
+  bool isGameEnd = false;
 
   @override
   @override
@@ -71,9 +72,12 @@ class _SinglePlayerNormalScreenState extends State<SinglePlayerNormalScreen> {
           onTap: () {
             setState(() {
               currentIndex = index;
-              showXorOAccordingToPlayer();
-              checkPlayer1IsWinner();
-              checkPlayer2IsWinner();
+
+              if (!isGameEnd) {
+                showXorOAccordingToPlayer();
+                checkPlayer1IsWinner();
+                checkPlayer2IsWinner();
+              }
               if (timeCount == 10) {
                 showTie(context);
               }
@@ -148,6 +152,7 @@ class _SinglePlayerNormalScreenState extends State<SinglePlayerNormalScreen> {
             gameData[6] == playerType.player1)) {
       showWinner(context, playerType.player1);
       isPlayer1Winner = true;
+      isGameEnd = true;
     }
   }
 
@@ -178,6 +183,7 @@ class _SinglePlayerNormalScreenState extends State<SinglePlayerNormalScreen> {
             gameData[6] == playerType.player2)) {
       showWinner(context, playerType.player2);
       isPlayer2Winner = true;
+      isGameEnd = true;
     }
   }
 
@@ -213,16 +219,16 @@ class _SinglePlayerNormalScreenState extends State<SinglePlayerNormalScreen> {
   }
 
   void makeThirdMove() {
-    if (gameData[1] == playerType.none) {
+    if (gameData[1] == playerType.none && gameData[0] == playerType.none && gameData[2] == playerType.none) {
       gameData[1] = playerType.player2;
       timeCount++;
-    } else if (gameData[3] == playerType.none) {
+    } else if (gameData[3] == playerType.none && gameData[0] == playerType.none && gameData[6] == playerType.none) {
       gameData[3] = playerType.player2;
       timeCount++;
-    } else if (gameData[5] == playerType.none) {
+    } else if (gameData[5] == playerType.none && gameData[2] == playerType.none && gameData[8] == playerType.none) {
       gameData[5] = playerType.player2;
       timeCount++;
-    } else if (gameData[7] == playerType.none) {
+    } else if (gameData[7] == playerType.none && gameData[6] == playerType.none && gameData[8] == playerType.none) {
       gameData[7] = playerType.player2;
       timeCount++;
     }

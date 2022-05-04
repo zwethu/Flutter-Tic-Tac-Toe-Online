@@ -17,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final Color onTapColor = const Color(0xff035956);
-  int touchedIndex = -1;
   mode touchedMode = mode.none;
 
   @override
@@ -39,11 +38,11 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 setState(
                   () {
-                    touchedIndex = 0;
+                    touchedMode = mode.singlePlayer;
                     
                     Timer(const Duration(milliseconds: 600), () {
                       setState(() {
-                        touchedIndex = -1;
+                        touchedMode = mode.none;
                         navigateToSinglePlayerModeScreen(context);
                       });
                     });
@@ -54,14 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 30),
             GameMode(
               modeText: 'Two Player Offline',
-              color: touchedIndex == 1 ? onTapColor : Colors.white,
+              color: touchedMode == mode.twoPlayerOffline ? onTapColor : Colors.white,
               onTap: () {
                 setState(
                   () {
-                    touchedIndex = 1;
+                    touchedMode = mode.twoPlayerOffline;
                     Timer(const Duration(milliseconds: 600), () {
                       setState(() {
-                        touchedIndex = -1;
+                        touchedMode = mode.none;
                         navigateToOfflineTwoPlayerScreen(context);
                       });
                     });
@@ -72,14 +71,14 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 30),
             GameMode(
               modeText: 'Two Player Online',
-              color: touchedIndex == 2 ? onTapColor : Colors.white,
+              color: touchedMode == mode.twoPlayerOnline ? onTapColor : Colors.white,
               onTap: () {
                 setState(
                   () {
-                    touchedIndex = 2;
+                    touchedMode = mode.twoPlayerOnline;
                     Timer(const Duration(milliseconds: 600), () {
                       setState(() {
-                        touchedIndex = -1;
+                        touchedMode = mode.none;
                         navigateToRoomCreateScreen(context);
                       });
                     });

@@ -6,6 +6,8 @@ import 'package:tic_tac_toe/screens/online_player1_prepare_screen.dart';
 import 'package:tic_tac_toe/screens/online_player2_prepare_screen.dart';
 import 'package:tic_tac_toe/style.dart';
 
+enum clickableThings{none,createRoom,joinRoom,back}
+
 class RoomCreateScreen extends StatefulWidget {
   const RoomCreateScreen({Key? key}) : super(key: key);
 
@@ -20,6 +22,11 @@ class _RoomCreateScreenState extends State<RoomCreateScreen> {
   String roomId = '';
   // ignore: non_constant_identifier_names
   int TouchedIndex = -1;
+  clickableThings clickedThings = clickableThings.none;
+  @override
+  void dispose() {
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,10 +42,10 @@ class _RoomCreateScreenState extends State<RoomCreateScreen> {
             const SizedBox(height: 50),
             GameMode(
               modeText: 'Create Room',
-              color: TouchedIndex == 0 ? onTapColor : Colors.white,
+              color: clickedThings == clickableThings.createRoom ? onTapColor : Colors.white,
               onTap: () async {
                 setState(() {
-                  TouchedIndex = 0;
+                  clickedThings = clickableThings.createRoom;
                   resetTouchAnimation();
                   roomId = _firestore.collection('GameData').doc().id;
                 });
@@ -61,10 +68,10 @@ class _RoomCreateScreenState extends State<RoomCreateScreen> {
             //use hotspot connnection to play together
             GameMode(
               modeText: 'Join Room',
-              color: TouchedIndex == 1 ? onTapColor : Colors.white,
+              color: clickedThings == clickableThings.joinRoom ? onTapColor : Colors.white,
               onTap: () {
                 setState(() {
-                  TouchedIndex = 1;
+                  clickedThings = clickableThings.joinRoom;
                   resetTouchAnimation();
                 });
                 Navigator.push(
@@ -80,12 +87,12 @@ class _RoomCreateScreenState extends State<RoomCreateScreen> {
             ButtonBack(
               onTap: () {
                 setState(() {
-                  TouchedIndex = 3;
+                  clickedThings = clickableThings.back;
                   resetTouchAnimation();
                   Navigator.pop(context);
                 });
               },
-              color: TouchedIndex == 3 ? onTapColor : Colors.white,
+              color: clickedThings == clickableThings.back ? onTapColor : Colors.white,
             ),
           ],
         ),
@@ -94,10 +101,10 @@ class _RoomCreateScreenState extends State<RoomCreateScreen> {
   }
 
   Timer resetTouchAnimation() {
-    return Timer(const Duration(milliseconds: 300), () {
-      setState(() {
-        TouchedIndex = -1;
-      });
+    return Timer(const Duration(milliseconds: 600), () {
+ 
+        clickedThings = clickableThings.none;
+  
     });
   }
 }

@@ -6,6 +6,8 @@ import 'package:tic_tac_toe/reusable_widgets.dart';
 import 'package:tic_tac_toe/screens/online_multiplayer_screen.dart';
 import 'package:tic_tac_toe/style.dart';
 
+enum clickableThings { back, none, clipboard, forward }
+
 class OnlinePlayer1PrepareScreen extends StatefulWidget {
   final String roomID;
   final bool isRoomOwner;
@@ -24,6 +26,7 @@ class _OnlinePlayer1PrepareScreenState
   String id = '';
   List<int> gameData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   String roomId = '';
+  clickableThings clickedThings = clickableThings.none;
   // ignore: non_constant_identifier_names
   int TouchedIndex = -1;
   @override
@@ -57,10 +60,14 @@ class _OnlinePlayer1PrepareScreenState
               id: id,
               onTap: () {
                 setState(() {
+                  clickedThings = clickableThings.clipboard;
                   Clipboard.setData(ClipboardData(text: id));
+                  resetTouchAnimation();
                 });
               },
-              color: TouchedIndex == 0 ? onTapColor : Colors.white,
+              color: clickedThings == clickableThings.clipboard
+                  ? onTapColor
+                  : Colors.white,
               icon: Icons.file_copy_outlined,
             ),
             const SizedBox(height: 30),
@@ -72,16 +79,18 @@ class _OnlinePlayer1PrepareScreenState
                   ButtonBack(
                     onTap: () {
                       setState(() {
-                        TouchedIndex = 3;
+                        clickedThings = clickableThings.back;
                         resetTouchAnimation();
                         Navigator.pop(context);
                       });
                     },
-                    color: TouchedIndex == 3 ? onTapColor : Colors.white,
+                    color: clickedThings == clickableThings.back
+                        ? onTapColor
+                        : Colors.white,
                   ),
                   ForwardButton(
                     onTap: () {
-                      TouchedIndex = 4;
+                      clickedThings = clickableThings.forward;
                       resetTouchAnimation();
                       Navigator.push(
                         context,
@@ -93,7 +102,9 @@ class _OnlinePlayer1PrepareScreenState
                         ),
                       );
                     },
-                    color: TouchedIndex == 4 ? onTapColor : Colors.white,
+                    color: clickedThings == clickableThings.forward
+                        ? onTapColor
+                        : Colors.white,
                   ),
                 ],
               ),
@@ -105,10 +116,8 @@ class _OnlinePlayer1PrepareScreenState
   }
 
   Timer resetTouchAnimation() {
-    return Timer(const Duration(milliseconds: 300), () {
-      setState(() {
-        TouchedIndex = -1;
-      });
+    return Timer(const Duration(milliseconds: 600), () {
+      clickedThings = clickableThings.none;
     });
   }
 }
@@ -148,7 +157,7 @@ class _IDCopyboardState extends State<IDCopyboard> {
               const SizedBox(width: 20),
               Text(
                 widget.id,
-                style: smallFont,
+                style: smallFont.copyWith(fontSize: 16),
               ),
               IconButton(
                 onPressed: () {

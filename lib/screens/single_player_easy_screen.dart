@@ -34,6 +34,7 @@ class _SinglePlayerEasyScreenState extends State<SinglePlayerEasyScreen> {
   bool gotUniqueId = false;
   bool isPlayer1Winner = false;
   bool isPlayer2Winner = false;
+  bool isGameEnd = false;
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +65,12 @@ class _SinglePlayerEasyScreenState extends State<SinglePlayerEasyScreen> {
           onTap: () {
             setState(() {
               currentIndex = index;
-              showXorOAccordingToPlayer();
-              checkPlayer1IsWinner();
-              checkPlayer2IsWinner();
+
+              if (!isGameEnd) {
+                showXorOAccordingToPlayer();
+                checkPlayer1IsWinner();
+                checkPlayer2IsWinner();
+              }
               if (timeCount == 10) {
                 showTie(context);
               }
@@ -141,6 +145,7 @@ class _SinglePlayerEasyScreenState extends State<SinglePlayerEasyScreen> {
             gameData[6] == playerType.player1)) {
       showWinner(context, playerType.player1);
       isPlayer1Winner = true;
+      isGameEnd = true;
     }
   }
 
@@ -171,6 +176,7 @@ class _SinglePlayerEasyScreenState extends State<SinglePlayerEasyScreen> {
             gameData[6] == playerType.player2)) {
       showWinner(context, playerType.player2);
       isPlayer2Winner = true;
+      isGameEnd = true;
     }
   }
 

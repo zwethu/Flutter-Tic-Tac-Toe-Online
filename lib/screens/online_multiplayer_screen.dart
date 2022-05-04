@@ -25,74 +25,54 @@ class _OnlineMultiplayerScreenState extends State<OnlineMultiplayerScreen> {
   int timeCount = 1;
   bool isPlayer1 = false;
   bool isPlayer2 = false;
+  bool isGameEnd = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: 520,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                StreamBuilder(
-                  stream: _firestore
-                      .collection('GameData')
-                      .doc(widget.roomID)
-                      .snapshots(),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.hasData) {
-                      final count = snapshot.data;
-                      timeCount = count['timeCount'];
-                      return playerScreen();
-                    } else if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    } else {
-                      return const Center(
-                        child: Text('Error Occured'),
-                      );
-                    }
-                  },
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                StreamBuilder(
-                  stream: _firestore
-                      .collection('GameData')
-                      .doc(widget.roomID)
-                      .snapshots(),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.hasData) {
-                      final data = snapshot.data;
-                      gameData = data['gameData'];
-                      timeCount = data['timeCount'];
-                      WidgetsBinding.instance?.addPostFrameCallback((_) {
-                        checkPlayer1IsWinner();
-                        checkPlayer2IsWinner();
-                        if (timeCount == 10) {
-                          showTieMessage(context);
-                        }
-                      });
-
-                      return touchscreenGridView();
-                    } else if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    } else {
-                      return const Center(
-                        child: Text('Error Occured'),
-                      );
-                    }
-                  },
-                ),
-                const SizedBox(height: 50),
-              ],
-            ),
+          child: StreamBuilder(
+            stream: _firestore
+                .collection('GameData')
+                .doc(widget.roomID)
+                .snapshots(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting ||
+                  !snapshot.hasData) {
+                return const CircularProgressIndicator();
+              } else if (snapshot.hasData) {
+                final data = snapshot.data;
+                timeCount = data['timeCount'];
+                gameData = data['gameData'];
+                WidgetsBinding.instance?.addPostFrameCallback((_) {
+                  checkPlayer1IsWinner();
+                  checkPlayer2IsWinner();
+                  if (timeCount == 10) {
+                    showTieMessage(context);
+                  }
+                });
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      playerScreen(),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      touchscreenGridView(),
+                      const SizedBox(height: 50),
+                    ],
+                  ),
+                );
+              } else if (snapshot.hasError) {
+                return const CircularProgressIndicator();
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
           ),
         ),
       ),
@@ -117,7 +97,6 @@ class _OnlineMultiplayerScreenState extends State<OnlineMultiplayerScreen> {
       itemBuilder: (BuildContext context, int index) {
         return TouchScreen(
           onTap: () {
-
             setState(() {
               currentIndex = index;
               showXorOAccordingToPlayer();
@@ -173,6 +152,7 @@ class _OnlineMultiplayerScreenState extends State<OnlineMultiplayerScreen> {
         (gameData[0] == 11 && gameData[4] == 1 && gameData[8] == 1) ||
         (gameData[2] == 1 && gameData[4] == 11 && gameData[6] == 1)) {
       showWinner(context, 1);
+      isGameEnd = true;
     }
   }
 
@@ -186,18 +166,8 @@ class _OnlineMultiplayerScreenState extends State<OnlineMultiplayerScreen> {
         (gameData[0] == 2 && gameData[4] == 2 && gameData[8] == 2) ||
         (gameData[2] == 2 && gameData[4] == 2 && gameData[6] == 2)) {
       showWinner(context, 2);
+      isGameEnd = true;
     }
-  }
-
-  Future<void> getData() async {
-    await _firestore
-        .collection('GameData')
-        .doc(widget.roomID)
-        .get()
-        .then((value) {
-      timeCount = value['timeCount'];
-      gameData = value['gameData'];
-    });
   }
 
   void showXorOAccordingToPlayer() {
