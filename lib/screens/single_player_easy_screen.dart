@@ -64,12 +64,9 @@ class _SinglePlayerEasyScreenState extends State<SinglePlayerEasyScreen> {
         return TouchScreen(
           onTap: () {
             setState(() {
-              currentIndex = index;
-
               if (!isGameEnd) {
+                currentIndex = index;
                 showXorOAccordingToPlayer();
-                checkPlayer1IsWinner();
-                checkPlayer2IsWinner();
               }
               if (timeCount == 10) {
                 showTie(context);
@@ -119,34 +116,39 @@ class _SinglePlayerEasyScreenState extends State<SinglePlayerEasyScreen> {
   }
 
   void checkPlayer1IsWinner() {
-    if ((gameData[0] == playerType.player1 &&
-            gameData[1] == playerType.player1 &&
-            gameData[2] == playerType.player1) ||
-        (gameData[3] == playerType.player1 &&
-            gameData[4] == playerType.player1 &&
-            gameData[5] == playerType.player1) ||
-        (gameData[6] == playerType.player1 &&
-            gameData[7] == playerType.player1 &&
-            gameData[8] == playerType.player1) ||
-        (gameData[1] == playerType.player1 &&
-            gameData[4] == playerType.player1 &&
-            gameData[7] == playerType.player1) ||
-        (gameData[0] == playerType.player1 &&
-            gameData[3] == playerType.player1 &&
-            gameData[6] == playerType.player1) ||
-        (gameData[2] == playerType.player1 &&
-            gameData[5] == playerType.player1 &&
-            gameData[8] == playerType.player1) ||
-        (gameData[0] == playerType.player1 &&
-            gameData[4] == playerType.player1 &&
-            gameData[8] == playerType.player1) ||
-        (gameData[2] == playerType.player1 &&
-            gameData[4] == playerType.player1 &&
-            gameData[6] == playerType.player1)) {
-      showWinner(context, playerType.player1);
-      isPlayer1Winner = true;
-      isGameEnd = true;
-    }
+   
+      if ((gameData[0] == playerType.player1 &&
+              gameData[1] == playerType.player1 &&
+              gameData[2] == playerType.player1) ||
+          (gameData[3] == playerType.player1 &&
+              gameData[4] == playerType.player1 &&
+              gameData[5] == playerType.player1) ||
+          (gameData[6] == playerType.player1 &&
+              gameData[7] == playerType.player1 &&
+              gameData[8] == playerType.player1) ||
+          (gameData[1] == playerType.player1 &&
+              gameData[4] == playerType.player1 &&
+              gameData[7] == playerType.player1) ||
+          (gameData[0] == playerType.player1 &&
+              gameData[3] == playerType.player1 &&
+              gameData[6] == playerType.player1) ||
+          (gameData[2] == playerType.player1 &&
+              gameData[5] == playerType.player1 &&
+              gameData[8] == playerType.player1) ||
+          (gameData[0] == playerType.player1 &&
+              gameData[4] == playerType.player1 &&
+              gameData[8] == playerType.player1) ||
+          (gameData[2] == playerType.player1 &&
+              gameData[4] == playerType.player1 &&
+              gameData[6] == playerType.player1)) {
+        showWinner(context, playerType.player1);
+
+        setState(() {
+          isPlayer1Winner = true;
+          isGameEnd = true;
+        });
+      }
+    
   }
 
   void checkPlayer2IsWinner() {
@@ -175,8 +177,10 @@ class _SinglePlayerEasyScreenState extends State<SinglePlayerEasyScreen> {
             gameData[4] == playerType.player2 &&
             gameData[6] == playerType.player2)) {
       showWinner(context, playerType.player2);
-      isPlayer2Winner = true;
-      isGameEnd = true;
+      setState(() {
+        isPlayer2Winner = true;
+        isGameEnd = true;
+      });
     }
   }
 
@@ -185,6 +189,8 @@ class _SinglePlayerEasyScreenState extends State<SinglePlayerEasyScreen> {
       if (gameData[currentIndex] == playerType.none) {
         gameData[currentIndex] = playerType.player1;
         timeCount = timeCount + 1;
+        checkPlayer1IsWinner();
+        checkPlayer2IsWinner();
       }
     }
     if (timeCount % 2 == 0 && !isPlayer1Winner) {
@@ -199,6 +205,8 @@ class _SinglePlayerEasyScreenState extends State<SinglePlayerEasyScreen> {
       } while (!gotUniqueId);
       if (gotUniqueId) {
         gameData[randomNumber] = playerType.player2;
+        checkPlayer1IsWinner();
+        checkPlayer2IsWinner();
       }
     }
   }

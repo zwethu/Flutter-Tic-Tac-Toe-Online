@@ -10,8 +10,7 @@ class SinglePlayerHardScreen extends StatefulWidget {
   const SinglePlayerHardScreen({Key? key}) : super(key: key);
 
   @override
-  State<SinglePlayerHardScreen> createState() =>
-      _SinglePlayerHardScreenState();
+  State<SinglePlayerHardScreen> createState() => _SinglePlayerHardScreenState();
 }
 
 class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
@@ -45,6 +44,7 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(timeCount);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -71,12 +71,10 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
         return TouchScreen(
           onTap: () {
             setState(() {
-              currentIndex = index;
-
               if (!isGameEnd) {
+                currentIndex = index;
+                
                 showXorOAccordingToPlayer();
-                checkPlayer1IsWinner();
-                checkPlayer2IsWinner();
               }
               if (timeCount == 10) {
                 showTie(context);
@@ -151,8 +149,10 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
             gameData[4] == playerType.player1 &&
             gameData[6] == playerType.player1)) {
       showWinner(context, playerType.player1);
-      isPlayer1Winner = true;
-      isGameEnd = true;
+      setState(() {
+        isPlayer1Winner = true;
+        isGameEnd = true;
+      });
     }
   }
 
@@ -182,8 +182,10 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
             gameData[4] == playerType.player2 &&
             gameData[6] == playerType.player2)) {
       showWinner(context, playerType.player2);
-      isPlayer2Winner = true;
-      isGameEnd = true;
+      setState(() {
+        isPlayer2Winner = true;
+        isGameEnd = true;
+      });
     }
   }
 
@@ -191,10 +193,14 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
     if (timeCount % 2 == 0 && !isPlayer2Winner) {
       if (gameData[currentIndex] == playerType.none) {
         gameData[currentIndex] = playerType.player1;
-        timeCount++;
+        setState(() {
+          timeCount++;
+        });
+        checkPlayer1IsWinner();
+        checkPlayer2IsWinner();
       }
     }
-    if (timeCount % 2 == 1 && !isPlayer1Winner) {
+    if (timeCount % 2 == 1 && !isPlayer1Winner && !isPlayer2Winner) {
       if (timeCount == 1) {
         makeFirstMove();
       }
@@ -207,9 +213,11 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
       if (timeCount == 7) {
         makeSeventhMove();
       }
-      if (timeCount == 8) {
+      if (timeCount == 9) {
         makeSeventhMove();
       }
+      checkPlayer1IsWinner();
+      checkPlayer2IsWinner();
     }
   }
 
@@ -219,16 +227,24 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
   }
 
   void makeThirdMove() {
-    if (gameData[1] == playerType.none && gameData[0] == playerType.none && gameData[2] == playerType.none) {
+    if (gameData[1] == playerType.none &&
+        gameData[0] == playerType.none &&
+        gameData[2] == playerType.none) {
       gameData[1] = playerType.player2;
       timeCount++;
-    } else if (gameData[3] == playerType.none && gameData[0] == playerType.none && gameData[6] == playerType.none) {
+    } else if (gameData[3] == playerType.none &&
+        gameData[0] == playerType.none &&
+        gameData[6] == playerType.none) {
       gameData[3] = playerType.player2;
       timeCount++;
-    } else if (gameData[5] == playerType.none && gameData[2] == playerType.none && gameData[8] == playerType.none) {
+    } else if (gameData[5] == playerType.none &&
+        gameData[2] == playerType.none &&
+        gameData[8] == playerType.none) {
       gameData[5] = playerType.player2;
       timeCount++;
-    } else if (gameData[7] == playerType.none && gameData[6] == playerType.none && gameData[8] == playerType.none) {
+    } else if (gameData[7] == playerType.none &&
+        gameData[6] == playerType.none &&
+        gameData[8] == playerType.none) {
       gameData[7] = playerType.player2;
       timeCount++;
     }
@@ -377,7 +393,9 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
         gameData[2] == playerType.none) {
       gameData[2] = playerType.player2;
     }
-    timeCount++;
+    setState(() {
+      timeCount++;
+    });
   }
 
   Future<dynamic> showWinner(BuildContext context, playerType player) {

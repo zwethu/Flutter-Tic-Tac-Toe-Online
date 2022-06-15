@@ -8,9 +8,11 @@ enum playerType { player1, player2, none }
 class OnlineMultiplayerScreen extends StatefulWidget {
   final bool isRoomOwner;
   final String roomID;
-  const OnlineMultiplayerScreen(
-      {Key? key, required this.isRoomOwner, required this.roomID})
-      : super(key: key);
+  const OnlineMultiplayerScreen({
+    Key? key,
+    required this.isRoomOwner,
+    required this.roomID,
+  }) : super(key: key);
 
   @override
   State<OnlineMultiplayerScreen> createState() =>
@@ -81,9 +83,13 @@ class _OnlineMultiplayerScreenState extends State<OnlineMultiplayerScreen> {
 
   Container playerScreen() {
     return Container(
-      child: timeCount % 2 == 0
-          ? const Text("Player2's turn", style: bigFont)
-          : const Text("Player1's turn", style: bigFont),
+      child: timeCount % 2 == 0 && widget.isRoomOwner
+          ? const Text("Other Player's turn", style: bigFont)
+          : timeCount % 2 == 0 && widget.isRoomOwner == false
+              ? const Text("Your turn", style: bigFont)
+              : timeCount % 2 == 1 && widget.isRoomOwner
+                  ? const Text("Yours turn", style: bigFont)
+                  : const Text("Other Player's turn", style: bigFont),
     );
   }
 
@@ -169,6 +175,8 @@ class _OnlineMultiplayerScreenState extends State<OnlineMultiplayerScreen> {
       isGameEnd = true;
     }
   }
+
+ 
 
   void showXorOAccordingToPlayer() {
     if (timeCount % 2 == 1 && widget.isRoomOwner) {
