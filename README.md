@@ -13,4 +13,6 @@
 
 # Gameplay 
 
- <img src="https://github.com/zwethu/news_app/blob/master/photos/Screenshot_1668694105.png" width="300"> 
+ <img src="https://github.com/zwethu/tic_tac_toe/blob/master/photos/Screenshot_1668787866.png" width="300"> 
+
+ <img src="https://github.com/zwethu/tic_tac_toe/blob/master/photos/Screenshot_1668787820.png" width="300"> 
