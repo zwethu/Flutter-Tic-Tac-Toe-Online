@@ -47,7 +47,7 @@ class _OnlineMultiplayerScreenState extends State<OnlineMultiplayerScreen> {
                 final data = snapshot.data;
                 timeCount = data['timeCount'];
                 gameData = data['gameData'];
-                WidgetsBinding.instance?.addPostFrameCallback((_) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
                   checkPlayer1IsWinner();
                   checkPlayer2IsWinner();
                   if (timeCount == 10) {
