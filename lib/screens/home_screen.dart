@@ -6,7 +6,7 @@ import 'package:tic_tac_toe/screens/room_create_screen.dart';
 import 'package:tic_tac_toe/screens/single_player_mode_screen.dart';
 import 'package:tic_tac_toe/style.dart';
 
-enum mode { singlePlayer, twoPlayerOffline, twoPlayerOnline, none}
+enum Mode { singlePlayer, twoPlayerOffline, twoPlayerOnline, none}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final Color onTapColor = const Color(0xff035956);
-  mode touchedMode = mode.none;
+  Mode touchedMode = Mode.none;
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +34,15 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 50),
             GameMode(
               modeText: 'Single Player',
-              color: touchedMode == mode.singlePlayer? onTapColor : Colors.white,
+              color: touchedMode == Mode.singlePlayer? onTapColor : Colors.white,
               onTap: () {
                 setState(
                   () {
-                    touchedMode = mode.singlePlayer;
+                    touchedMode = Mode.singlePlayer;
                     
                     Timer(const Duration(milliseconds: 600), () {
                       setState(() {
-                        touchedMode = mode.none;
+                        touchedMode = Mode.none;
                         navigateToSinglePlayerModeScreen(context);
                       });
                     });
@@ -53,14 +53,14 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 30),
             GameMode(
               modeText: 'Two Player Offline',
-              color: touchedMode == mode.twoPlayerOffline ? onTapColor : Colors.white,
+              color: touchedMode == Mode.twoPlayerOffline ? onTapColor : Colors.white,
               onTap: () {
                 setState(
                   () {
-                    touchedMode = mode.twoPlayerOffline;
+                    touchedMode = Mode.twoPlayerOffline;
                     Timer(const Duration(milliseconds: 600), () {
                       setState(() {
-                        touchedMode = mode.none;
+                        touchedMode = Mode.none;
                         navigateToOfflineTwoPlayerScreen(context);
                       });
                     });
@@ -71,14 +71,14 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 30),
             GameMode(
               modeText: 'Two Player Online',
-              color: touchedMode == mode.twoPlayerOnline ? onTapColor : Colors.white,
+              color: touchedMode == Mode.twoPlayerOnline ? onTapColor : Colors.white,
               onTap: () {
                 setState(
                   () {
-                    touchedMode = mode.twoPlayerOnline;
+                    touchedMode = Mode.twoPlayerOnline;
                     Timer(const Duration(milliseconds: 600), () {
                       setState(() {
-                        touchedMode = mode.none;
+                        touchedMode = Mode.none;
                         navigateToRoomCreateScreen(context);
                       });
                     });

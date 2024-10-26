@@ -5,7 +5,7 @@ import 'package:tic_tac_toe/reusable_widgets.dart';
 import 'package:tic_tac_toe/screens/online_multiplayer_screen.dart';
 import 'package:tic_tac_toe/style.dart';
 
-enum clickableThings{none,forward,back}
+enum ClickableThings{none,forward,back}
 
 class OnlinePlayer2PrepareScreen extends StatefulWidget {
   final bool isRoomOwner;
@@ -26,7 +26,7 @@ class _OnlinePlayer2PrepareScreenState
   String roomId = '';
   // ignore: non_constant_identifier_names
   int TouchedIndex = -1;
-  clickableThings clickedThings = clickableThings.none;
+  ClickableThings clickedThings = ClickableThings.none;
 
   @override
   void initState() {
@@ -71,16 +71,16 @@ class _OnlinePlayer2PrepareScreenState
                     ButtonBack(
                       onTap: () {
                         setState(() {
-                          clickedThings = clickableThings.back;
+                          clickedThings = ClickableThings.back;
                           resetTouchAnimation();
                           Navigator.pop(context);
                         });
                       },
-                      color: clickedThings == clickableThings.back ? onTapColor : Colors.white,
+                      color: clickedThings == ClickableThings.back ? onTapColor : Colors.white,
                     ),
                     ForwardButton(
                       onTap: () {
-                        clickedThings = clickableThings.forward;
+                        clickedThings = ClickableThings.forward;
                         resetTouchAnimation();
                         Navigator.push(
                           context,
@@ -92,7 +92,7 @@ class _OnlinePlayer2PrepareScreenState
                           ),
                         );
                       },
-                      color: clickedThings == clickableThings.forward? onTapColor : Colors.white,
+                      color: clickedThings == ClickableThings.forward? onTapColor : Colors.white,
                     ),
                   ],
                 ),
@@ -107,7 +107,7 @@ class _OnlinePlayer2PrepareScreenState
   Timer resetTouchAnimation() {
     return Timer(const Duration(milliseconds: 300), () {
       
-        clickedThings = clickableThings.none;
+        clickedThings = ClickableThings.none;
     
     });
   }

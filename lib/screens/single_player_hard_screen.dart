@@ -1,10 +1,11 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/screens/home_screen.dart';
 import 'package:tic_tac_toe/style.dart';
 
-enum playerType { player1, player2, none }
+enum PlayerType { player1, player2, none }
 
 class SinglePlayerHardScreen extends StatefulWidget {
   const SinglePlayerHardScreen({Key? key}) : super(key: key);
@@ -14,16 +15,16 @@ class SinglePlayerHardScreen extends StatefulWidget {
 }
 
 class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
-  List<playerType> gameData = [
-    playerType.none,
-    playerType.none,
-    playerType.none,
-    playerType.none,
-    playerType.none,
-    playerType.none,
-    playerType.none,
-    playerType.none,
-    playerType.none,
+  List<PlayerType> gameData = [
+    PlayerType.none,
+    PlayerType.none,
+    PlayerType.none,
+    PlayerType.none,
+    PlayerType.none,
+    PlayerType.none,
+    PlayerType.none,
+    PlayerType.none,
+    PlayerType.none,
   ];
   int currentIndex = -1;
   int timeCount = 1;
@@ -44,7 +45,9 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(timeCount);
+    if (kDebugMode) {
+      print(timeCount);
+    }
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -81,12 +84,12 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
               }
             });
           },
-          icon: gameData[index] == playerType.player1
+          icon: gameData[index] == PlayerType.player1
               ? Icons.lens_outlined
-              : gameData[index] == playerType.player2
+              : gameData[index] == PlayerType.player2
                   ? Icons.close_outlined
                   : Icons.question_mark_outlined,
-          iconColor: gameData[index] == playerType.none
+          iconColor: gameData[index] == PlayerType.none
               ? Colors.transparent
               : Colors.white,
         );
@@ -124,31 +127,31 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
   }
 
   void checkPlayer1IsWinner() {
-    if ((gameData[0] == playerType.player1 &&
-            gameData[1] == playerType.player1 &&
-            gameData[2] == playerType.player1) ||
-        (gameData[3] == playerType.player1 &&
-            gameData[4] == playerType.player1 &&
-            gameData[5] == playerType.player1) ||
-        (gameData[6] == playerType.player1 &&
-            gameData[7] == playerType.player1 &&
-            gameData[8] == playerType.player1) ||
-        (gameData[1] == playerType.player1 &&
-            gameData[4] == playerType.player1 &&
-            gameData[7] == playerType.player1) ||
-        (gameData[0] == playerType.player1 &&
-            gameData[3] == playerType.player1 &&
-            gameData[6] == playerType.player1) ||
-        (gameData[2] == playerType.player1 &&
-            gameData[5] == playerType.player1 &&
-            gameData[8] == playerType.player1) ||
-        (gameData[0] == playerType.player1 &&
-            gameData[4] == playerType.player1 &&
-            gameData[8] == playerType.player1) ||
-        (gameData[2] == playerType.player1 &&
-            gameData[4] == playerType.player1 &&
-            gameData[6] == playerType.player1)) {
-      showWinner(context, playerType.player1);
+    if ((gameData[0] == PlayerType.player1 &&
+            gameData[1] == PlayerType.player1 &&
+            gameData[2] == PlayerType.player1) ||
+        (gameData[3] == PlayerType.player1 &&
+            gameData[4] == PlayerType.player1 &&
+            gameData[5] == PlayerType.player1) ||
+        (gameData[6] == PlayerType.player1 &&
+            gameData[7] == PlayerType.player1 &&
+            gameData[8] == PlayerType.player1) ||
+        (gameData[1] == PlayerType.player1 &&
+            gameData[4] == PlayerType.player1 &&
+            gameData[7] == PlayerType.player1) ||
+        (gameData[0] == PlayerType.player1 &&
+            gameData[3] == PlayerType.player1 &&
+            gameData[6] == PlayerType.player1) ||
+        (gameData[2] == PlayerType.player1 &&
+            gameData[5] == PlayerType.player1 &&
+            gameData[8] == PlayerType.player1) ||
+        (gameData[0] == PlayerType.player1 &&
+            gameData[4] == PlayerType.player1 &&
+            gameData[8] == PlayerType.player1) ||
+        (gameData[2] == PlayerType.player1 &&
+            gameData[4] == PlayerType.player1 &&
+            gameData[6] == PlayerType.player1)) {
+      showWinner(context, PlayerType.player1);
       setState(() {
         isPlayer1Winner = true;
         isGameEnd = true;
@@ -157,31 +160,31 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
   }
 
   void checkPlayer2IsWinner() {
-    if ((gameData[0] == playerType.player2 &&
-            gameData[1] == playerType.player2 &&
-            gameData[2] == playerType.player2) ||
-        (gameData[3] == playerType.player2 &&
-            gameData[4] == playerType.player2 &&
-            gameData[5] == playerType.player2) ||
-        (gameData[6] == playerType.player2 &&
-            gameData[7] == playerType.player2 &&
-            gameData[8] == playerType.player2) ||
-        (gameData[1] == playerType.player2 &&
-            gameData[4] == playerType.player2 &&
-            gameData[7] == playerType.player2) ||
-        (gameData[0] == playerType.player2 &&
-            gameData[3] == playerType.player2 &&
-            gameData[6] == playerType.player2) ||
-        (gameData[2] == playerType.player2 &&
-            gameData[5] == playerType.player2 &&
-            gameData[8] == playerType.player2) ||
-        (gameData[0] == playerType.player2 &&
-            gameData[4] == playerType.player2 &&
-            gameData[8] == playerType.player2) ||
-        (gameData[2] == playerType.player2 &&
-            gameData[4] == playerType.player2 &&
-            gameData[6] == playerType.player2)) {
-      showWinner(context, playerType.player2);
+    if ((gameData[0] == PlayerType.player2 &&
+            gameData[1] == PlayerType.player2 &&
+            gameData[2] == PlayerType.player2) ||
+        (gameData[3] == PlayerType.player2 &&
+            gameData[4] == PlayerType.player2 &&
+            gameData[5] == PlayerType.player2) ||
+        (gameData[6] == PlayerType.player2 &&
+            gameData[7] == PlayerType.player2 &&
+            gameData[8] == PlayerType.player2) ||
+        (gameData[1] == PlayerType.player2 &&
+            gameData[4] == PlayerType.player2 &&
+            gameData[7] == PlayerType.player2) ||
+        (gameData[0] == PlayerType.player2 &&
+            gameData[3] == PlayerType.player2 &&
+            gameData[6] == PlayerType.player2) ||
+        (gameData[2] == PlayerType.player2 &&
+            gameData[5] == PlayerType.player2 &&
+            gameData[8] == PlayerType.player2) ||
+        (gameData[0] == PlayerType.player2 &&
+            gameData[4] == PlayerType.player2 &&
+            gameData[8] == PlayerType.player2) ||
+        (gameData[2] == PlayerType.player2 &&
+            gameData[4] == PlayerType.player2 &&
+            gameData[6] == PlayerType.player2)) {
+      showWinner(context, PlayerType.player2);
       setState(() {
         isPlayer2Winner = true;
         isGameEnd = true;
@@ -191,8 +194,8 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
 
   void showXorOAccordingToPlayer() {
     if (timeCount % 2 == 0 && !isPlayer2Winner) {
-      if (gameData[currentIndex] == playerType.none) {
-        gameData[currentIndex] = playerType.player1;
+      if (gameData[currentIndex] == PlayerType.none) {
+        gameData[currentIndex] = PlayerType.player1;
         setState(() {
           timeCount++;
         });
@@ -222,81 +225,81 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
   }
 
   void makeFirstMove() {
-    gameData[4] = playerType.player2;
+    gameData[4] = PlayerType.player2;
     timeCount++;
   }
 
   void makeThirdMove() {
-    if (gameData[1] == playerType.none &&
-        gameData[0] == playerType.none &&
-        gameData[2] == playerType.none) {
-      gameData[1] = playerType.player2;
+    if (gameData[1] == PlayerType.none &&
+        gameData[0] == PlayerType.none &&
+        gameData[2] == PlayerType.none) {
+      gameData[1] = PlayerType.player2;
       timeCount++;
-    } else if (gameData[3] == playerType.none &&
-        gameData[0] == playerType.none &&
-        gameData[6] == playerType.none) {
-      gameData[3] = playerType.player2;
+    } else if (gameData[3] == PlayerType.none &&
+        gameData[0] == PlayerType.none &&
+        gameData[6] == PlayerType.none) {
+      gameData[3] = PlayerType.player2;
       timeCount++;
-    } else if (gameData[5] == playerType.none &&
-        gameData[2] == playerType.none &&
-        gameData[8] == playerType.none) {
-      gameData[5] = playerType.player2;
+    } else if (gameData[5] == PlayerType.none &&
+        gameData[2] == PlayerType.none &&
+        gameData[8] == PlayerType.none) {
+      gameData[5] = PlayerType.player2;
       timeCount++;
-    } else if (gameData[7] == playerType.none &&
-        gameData[6] == playerType.none &&
-        gameData[8] == playerType.none) {
-      gameData[7] = playerType.player2;
+    } else if (gameData[7] == PlayerType.none &&
+        gameData[6] == PlayerType.none &&
+        gameData[8] == PlayerType.none) {
+      gameData[7] = PlayerType.player2;
       timeCount++;
     }
   }
 
   void makeFifthMove() {
-    if (gameData[1] == playerType.player2 && gameData[7] == playerType.none) {
-      gameData[7] = playerType.player2;
+    if (gameData[1] == PlayerType.player2 && gameData[7] == PlayerType.none) {
+      gameData[7] = PlayerType.player2;
       timeCount++;
-    } else if (gameData[3] == playerType.player2 &&
-        gameData[5] == playerType.none) {
-      gameData[5] = playerType.player2;
+    } else if (gameData[3] == PlayerType.player2 &&
+        gameData[5] == PlayerType.none) {
+      gameData[5] = PlayerType.player2;
       timeCount++;
-    } else if (gameData[5] == playerType.player2 &&
-        gameData[3] == playerType.none) {
-      gameData[3] = playerType.player2;
+    } else if (gameData[5] == PlayerType.player2 &&
+        gameData[3] == PlayerType.none) {
+      gameData[3] = PlayerType.player2;
       timeCount++;
-    } else if (gameData[7] == playerType.player2 &&
-        gameData[1] == playerType.none) {
-      gameData[1] = playerType.player2;
+    } else if (gameData[7] == PlayerType.player2 &&
+        gameData[1] == PlayerType.none) {
+      gameData[1] = PlayerType.player2;
       timeCount++;
     } else {
-      if (gameData[1] == playerType.player2 &&
-          gameData[7] == playerType.player1) {
-        if (gameData[0] == playerType.none) {
-          gameData[0] = playerType.player2;
-        } else if (gameData[2] == playerType.none) {
-          gameData[2] = playerType.player2;
+      if (gameData[1] == PlayerType.player2 &&
+          gameData[7] == PlayerType.player1) {
+        if (gameData[0] == PlayerType.none) {
+          gameData[0] = PlayerType.player2;
+        } else if (gameData[2] == PlayerType.none) {
+          gameData[2] = PlayerType.player2;
         }
         timeCount++;
-      } else if (gameData[3] == playerType.player2 &&
-          gameData[5] == playerType.player1) {
-        if (gameData[0] == playerType.none) {
-          gameData[0] = playerType.player2;
-        } else if (gameData[6] == playerType.none) {
-          gameData[6] = playerType.player2;
+      } else if (gameData[3] == PlayerType.player2 &&
+          gameData[5] == PlayerType.player1) {
+        if (gameData[0] == PlayerType.none) {
+          gameData[0] = PlayerType.player2;
+        } else if (gameData[6] == PlayerType.none) {
+          gameData[6] = PlayerType.player2;
         }
         timeCount++;
-      } else if (gameData[5] == playerType.player2 &&
-          gameData[3] == playerType.player1) {
-        if (gameData[2] == playerType.none) {
-          gameData[2] = playerType.player2;
-        } else if (gameData[8] == playerType.none) {
-          gameData[8] = playerType.player2;
+      } else if (gameData[5] == PlayerType.player2 &&
+          gameData[3] == PlayerType.player1) {
+        if (gameData[2] == PlayerType.none) {
+          gameData[2] = PlayerType.player2;
+        } else if (gameData[8] == PlayerType.none) {
+          gameData[8] = PlayerType.player2;
         }
         timeCount++;
-      } else if (gameData[7] == playerType.player2 &&
-          gameData[1] == playerType.player1) {
-        if (gameData[6] == playerType.none) {
-          gameData[6] = playerType.player2;
-        } else if (gameData[8] == playerType.none) {
-          gameData[8] = playerType.player2;
+      } else if (gameData[7] == PlayerType.player2 &&
+          gameData[1] == PlayerType.player1) {
+        if (gameData[6] == PlayerType.none) {
+          gameData[6] = PlayerType.player2;
+        } else if (gameData[8] == PlayerType.none) {
+          gameData[8] = PlayerType.player2;
         }
         timeCount++;
       }
@@ -304,101 +307,101 @@ class _SinglePlayerHardScreenState extends State<SinglePlayerHardScreen> {
   }
 
   void makeSeventhMove() {
-    if (gameData[0] == playerType.player2 &&
-        gameData[1] == playerType.player2 &&
-        gameData[2] == playerType.none) {
-      gameData[2] = playerType.player2;
-    } else if (gameData[0] == playerType.player2 &&
-        gameData[2] == playerType.player2 &&
-        gameData[1] == playerType.none) {
-      gameData[1] = playerType.player2;
-    } else if (gameData[1] == playerType.player2 &&
-        gameData[2] == playerType.player2 &&
-        gameData[0] == playerType.none) {
-      gameData[0] = playerType.player2;
-    } else if (gameData[3] == playerType.player2 &&
-        gameData[4] == playerType.player2 &&
-        gameData[5] == playerType.none) {
-      gameData[5] = playerType.player2;
-    } else if (gameData[3] == playerType.player2 &&
-        gameData[5] == playerType.player2 &&
-        gameData[4] == playerType.none) {
-      gameData[4] = playerType.player2;
-    } else if (gameData[4] == playerType.player2 &&
-        gameData[5] == playerType.player2 &&
-        gameData[3] == playerType.none) {
-      gameData[3] = playerType.player2;
-    } else if (gameData[6] == playerType.player2 &&
-        gameData[7] == playerType.player2 &&
-        gameData[8] == playerType.none) {
-      gameData[8] = playerType.player2;
-    } else if (gameData[6] == playerType.player2 &&
-        gameData[8] == playerType.player2 &&
-        gameData[7] == playerType.none) {
-      gameData[7] = playerType.player2;
-    } else if (gameData[7] == playerType.player2 &&
-        gameData[8] == playerType.player2 &&
-        gameData[6] == playerType.none) {
-      gameData[6] = playerType.player2;
-    } else if (gameData[0] == playerType.player2 &&
-        gameData[3] == playerType.player2 &&
-        gameData[6] == playerType.none) {
-      gameData[6] = playerType.player2;
-    } else if (gameData[0] == playerType.player2 &&
-        gameData[6] == playerType.player2 &&
-        gameData[3] == playerType.none) {
-      gameData[3] = playerType.player2;
-    } else if (gameData[3] == playerType.player2 &&
-        gameData[6] == playerType.player2 &&
-        gameData[0] == playerType.none) {
-      gameData[0] = playerType.player2;
-    } else if (gameData[1] == playerType.player2 &&
-        gameData[4] == playerType.player2 &&
-        gameData[7] == playerType.none) {
-      gameData[7] = playerType.player2;
-    } else if (gameData[1] == playerType.player2 &&
-        gameData[7] == playerType.player2 &&
-        gameData[4] == playerType.none) {
-      gameData[4] = playerType.player2;
-    } else if (gameData[4] == playerType.player2 &&
-        gameData[7] == playerType.player2 &&
-        gameData[1] == playerType.none) {
-      gameData[1] = playerType.player2;
-    } else if (gameData[2] == playerType.player2 &&
-        gameData[5] == playerType.player2 &&
-        gameData[8] == playerType.none) {
-      gameData[8] = playerType.player2;
-    } else if (gameData[2] == playerType.player2 &&
-        gameData[8] == playerType.player2 &&
-        gameData[5] == playerType.none) {
-      gameData[5] = playerType.player2;
-    } else if (gameData[8] == playerType.player2 &&
-        gameData[5] == playerType.player2 &&
-        gameData[2] == playerType.none) {
-      gameData[2] = playerType.player2;
-    } else if (gameData[0] == playerType.player2 &&
-        gameData[4] == playerType.player2 &&
-        gameData[8] == playerType.none) {
-      gameData[8] = playerType.player2;
-    } else if (gameData[4] == playerType.player2 &&
-        gameData[8] == playerType.player2 &&
-        gameData[0] == playerType.none) {
-      gameData[0] = playerType.player2;
-    } else if (gameData[2] == playerType.player2 &&
-        gameData[4] == playerType.player2 &&
-        gameData[6] == playerType.none) {
-      gameData[6] = playerType.player2;
-    } else if (gameData[6] == playerType.player2 &&
-        gameData[4] == playerType.player2 &&
-        gameData[2] == playerType.none) {
-      gameData[2] = playerType.player2;
+    if (gameData[0] == PlayerType.player2 &&
+        gameData[1] == PlayerType.player2 &&
+        gameData[2] == PlayerType.none) {
+      gameData[2] = PlayerType.player2;
+    } else if (gameData[0] == PlayerType.player2 &&
+        gameData[2] == PlayerType.player2 &&
+        gameData[1] == PlayerType.none) {
+      gameData[1] = PlayerType.player2;
+    } else if (gameData[1] == PlayerType.player2 &&
+        gameData[2] == PlayerType.player2 &&
+        gameData[0] == PlayerType.none) {
+      gameData[0] = PlayerType.player2;
+    } else if (gameData[3] == PlayerType.player2 &&
+        gameData[4] == PlayerType.player2 &&
+        gameData[5] == PlayerType.none) {
+      gameData[5] = PlayerType.player2;
+    } else if (gameData[3] == PlayerType.player2 &&
+        gameData[5] == PlayerType.player2 &&
+        gameData[4] == PlayerType.none) {
+      gameData[4] = PlayerType.player2;
+    } else if (gameData[4] == PlayerType.player2 &&
+        gameData[5] == PlayerType.player2 &&
+        gameData[3] == PlayerType.none) {
+      gameData[3] = PlayerType.player2;
+    } else if (gameData[6] == PlayerType.player2 &&
+        gameData[7] == PlayerType.player2 &&
+        gameData[8] == PlayerType.none) {
+      gameData[8] = PlayerType.player2;
+    } else if (gameData[6] == PlayerType.player2 &&
+        gameData[8] == PlayerType.player2 &&
+        gameData[7] == PlayerType.none) {
+      gameData[7] = PlayerType.player2;
+    } else if (gameData[7] == PlayerType.player2 &&
+        gameData[8] == PlayerType.player2 &&
+        gameData[6] == PlayerType.none) {
+      gameData[6] = PlayerType.player2;
+    } else if (gameData[0] == PlayerType.player2 &&
+        gameData[3] == PlayerType.player2 &&
+        gameData[6] == PlayerType.none) {
+      gameData[6] = PlayerType.player2;
+    } else if (gameData[0] == PlayerType.player2 &&
+        gameData[6] == PlayerType.player2 &&
+        gameData[3] == PlayerType.none) {
+      gameData[3] = PlayerType.player2;
+    } else if (gameData[3] == PlayerType.player2 &&
+        gameData[6] == PlayerType.player2 &&
+        gameData[0] == PlayerType.none) {
+      gameData[0] = PlayerType.player2;
+    } else if (gameData[1] == PlayerType.player2 &&
+        gameData[4] == PlayerType.player2 &&
+        gameData[7] == PlayerType.none) {
+      gameData[7] = PlayerType.player2;
+    } else if (gameData[1] == PlayerType.player2 &&
+        gameData[7] == PlayerType.player2 &&
+        gameData[4] == PlayerType.none) {
+      gameData[4] = PlayerType.player2;
+    } else if (gameData[4] == PlayerType.player2 &&
+        gameData[7] == PlayerType.player2 &&
+        gameData[1] == PlayerType.none) {
+      gameData[1] = PlayerType.player2;
+    } else if (gameData[2] == PlayerType.player2 &&
+        gameData[5] == PlayerType.player2 &&
+        gameData[8] == PlayerType.none) {
+      gameData[8] = PlayerType.player2;
+    } else if (gameData[2] == PlayerType.player2 &&
+        gameData[8] == PlayerType.player2 &&
+        gameData[5] == PlayerType.none) {
+      gameData[5] = PlayerType.player2;
+    } else if (gameData[8] == PlayerType.player2 &&
+        gameData[5] == PlayerType.player2 &&
+        gameData[2] == PlayerType.none) {
+      gameData[2] = PlayerType.player2;
+    } else if (gameData[0] == PlayerType.player2 &&
+        gameData[4] == PlayerType.player2 &&
+        gameData[8] == PlayerType.none) {
+      gameData[8] = PlayerType.player2;
+    } else if (gameData[4] == PlayerType.player2 &&
+        gameData[8] == PlayerType.player2 &&
+        gameData[0] == PlayerType.none) {
+      gameData[0] = PlayerType.player2;
+    } else if (gameData[2] == PlayerType.player2 &&
+        gameData[4] == PlayerType.player2 &&
+        gameData[6] == PlayerType.none) {
+      gameData[6] = PlayerType.player2;
+    } else if (gameData[6] == PlayerType.player2 &&
+        gameData[4] == PlayerType.player2 &&
+        gameData[2] == PlayerType.none) {
+      gameData[2] = PlayerType.player2;
     }
     setState(() {
       timeCount++;
     });
   }
 
-  Future<dynamic> showWinner(BuildContext context, playerType player) {
+  Future<dynamic> showWinner(BuildContext context, PlayerType player) {
     String winner = player.name;
     return showDialog(
       context: context,

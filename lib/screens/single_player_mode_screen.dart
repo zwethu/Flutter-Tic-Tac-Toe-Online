@@ -6,7 +6,7 @@ import 'package:tic_tac_toe/screens/single_player_easy_screen.dart';
 import 'package:tic_tac_toe/screens/single_player_hard_screen.dart';
 import 'package:tic_tac_toe/style.dart';
 
-enum mode{none,easy,hard,back}
+enum Mode{none,easy,hard,back}
 
 class SinglePlayerModeScreen extends StatefulWidget {
   const SinglePlayerModeScreen({Key? key}) : super(key: key);
@@ -19,7 +19,7 @@ class _SinglePlayerModeScreenState extends State<SinglePlayerModeScreen> {
   final Color onTapColor = const Color(0xff035956);
   // ignore: non_constant_identifier_names
   int TouchedIndex = -1;
-  mode selectedMode = mode.none;
+  Mode selectedMode = Mode.none;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,10 +36,10 @@ class _SinglePlayerModeScreenState extends State<SinglePlayerModeScreen> {
             //stupid ai bot
             GameMode(
               modeText: 'Easy',
-              color: selectedMode == mode.easy ? onTapColor : Colors.white,
+              color: selectedMode == Mode.easy ? onTapColor : Colors.white,
               onTap: () {
                 setState(() {
-                  selectedMode = mode.easy;
+                  selectedMode = Mode.easy;
                   resetTouchAnimation();
                   Navigator.push(
                     context,
@@ -54,10 +54,10 @@ class _SinglePlayerModeScreenState extends State<SinglePlayerModeScreen> {
             //normal easy ai bot
             GameMode(
               modeText: 'Hard',
-              color: selectedMode == mode.hard ? onTapColor : Colors.white,
+              color: selectedMode == Mode.hard ? onTapColor : Colors.white,
               onTap: () {
                 setState(() {
-                  selectedMode = mode.hard;
+                  selectedMode = Mode.hard;
                   resetTouchAnimation();
                 });
                 Navigator.push(
@@ -74,13 +74,13 @@ class _SinglePlayerModeScreenState extends State<SinglePlayerModeScreen> {
               onTap: () {
                 setState(
                   () {
-                    selectedMode = mode.back;
+                    selectedMode = Mode.back;
                     resetTouchAnimation();
                     Navigator.pop(context);
                   },
                 );
               },
-              color: selectedMode == mode.back ? onTapColor : Colors.white,
+              color: selectedMode == Mode.back ? onTapColor : Colors.white,
             ),
           ],
         ),
@@ -91,7 +91,7 @@ class _SinglePlayerModeScreenState extends State<SinglePlayerModeScreen> {
   Timer resetTouchAnimation() {
     return Timer(const Duration(milliseconds: 600), () {
     
-        selectedMode = mode.none;
+        selectedMode = Mode.none;
      
     });
   }

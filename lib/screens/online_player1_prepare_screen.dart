@@ -6,7 +6,7 @@ import 'package:tic_tac_toe/reusable_widgets.dart';
 import 'package:tic_tac_toe/screens/online_multiplayer_screen.dart';
 import 'package:tic_tac_toe/style.dart';
 
-enum clickableThings { back, none, clipboard, forward }
+enum ClickableThings { back, none, clipboard, forward }
 
 class OnlinePlayer1PrepareScreen extends StatefulWidget {
   final String roomID;
@@ -26,7 +26,7 @@ class _OnlinePlayer1PrepareScreenState
   String id = '';
   List<int> gameData = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   String roomId = '';
-  clickableThings clickedThings = clickableThings.none;
+  ClickableThings clickedThings = ClickableThings.none;
   // ignore: non_constant_identifier_names
   int TouchedIndex = -1;
   @override
@@ -60,12 +60,12 @@ class _OnlinePlayer1PrepareScreenState
               id: id,
               onTap: () {
                 setState(() {
-                  clickedThings = clickableThings.clipboard;
+                  clickedThings = ClickableThings.clipboard;
                   Clipboard.setData(ClipboardData(text: id));
                   resetTouchAnimation();
                 });
               },
-              color: clickedThings == clickableThings.clipboard
+              color: clickedThings == ClickableThings.clipboard
                   ? onTapColor
                   : Colors.white,
               icon: Icons.file_copy_outlined,
@@ -79,18 +79,18 @@ class _OnlinePlayer1PrepareScreenState
                   ButtonBack(
                     onTap: () {
                       setState(() {
-                        clickedThings = clickableThings.back;
+                        clickedThings = ClickableThings.back;
                         resetTouchAnimation();
                         Navigator.pop(context);
                       });
                     },
-                    color: clickedThings == clickableThings.back
+                    color: clickedThings == ClickableThings.back
                         ? onTapColor
                         : Colors.white,
                   ),
                   ForwardButton(
                     onTap: () {
-                      clickedThings = clickableThings.forward;
+                      clickedThings = ClickableThings.forward;
                       resetTouchAnimation();
                       Navigator.push(
                         context,
@@ -102,7 +102,7 @@ class _OnlinePlayer1PrepareScreenState
                         ),
                       );
                     },
-                    color: clickedThings == clickableThings.forward
+                    color: clickedThings == ClickableThings.forward
                         ? onTapColor
                         : Colors.white,
                   ),
@@ -117,7 +117,7 @@ class _OnlinePlayer1PrepareScreenState
 
   Timer resetTouchAnimation() {
     return Timer(const Duration(milliseconds: 600), () {
-      clickedThings = clickableThings.none;
+      clickedThings = ClickableThings.none;
     });
   }
 }

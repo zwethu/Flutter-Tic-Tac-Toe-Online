@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/screens/home_screen.dart';
 import 'package:tic_tac_toe/style.dart';
 
-enum playerType { player1, player2, none }
+enum PlayerType { player1, player2, none }
 
 class OnlineMultiplayerScreen extends StatefulWidget {
   final bool isRoomOwner;
